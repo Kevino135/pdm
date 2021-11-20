@@ -49,8 +49,14 @@ int calculateTotalBunga(int deposit, int tenor, int year){
     else if(tenor == 12) bunga_per_tahun = 0.042;
     
     float bunga = 0;
+    float deposit_total = 0;
+    float total_bunga = 0;
     for(int i=0; i<repetition; i++){
-        bunga = deposito * bunga
+        bunga = deposit * bunga_per_tahun / 12 * tenor;
+        deposit_total = deposit + bunga;
+        total_bunga = deposit_total - deposit; 
+        
+        deposit = deposit_total;
     }
 }
 
@@ -68,7 +74,7 @@ int main() {
     // printf("%d\n", get_input_tenor);
     // printf("%d\n", get_input_year);
     
-    int calculate_total_bunga = calculateTotalBunga(deposit, tenor, year);
+    float calculate_total_bunga = calculateTotalBunga(deposit, tenor, year);
     printf("%d\n", calculate_total_bunga);
     
     // int biaya = deduction();
