@@ -17,9 +17,9 @@ int getTenor(){
 }
 
 int getDeposit(){
-    int userinput = 0;
+    float userinput = 0;
     
-    scanf("%d", &userinput);
+    scanf("%f", &userinput);
     return userinput;
 }
 
@@ -39,7 +39,7 @@ int getinput(char choice[]){
     return input;
 }
 
-int calculateTotalBunga(int deposit, int tenor, int year){
+float calculateTotalBunga(float deposit, int tenor, int year){
     int repetition = (12 / tenor) * year;
     
     float bunga_per_tahun = 0;
@@ -51,18 +51,25 @@ int calculateTotalBunga(int deposit, int tenor, int year){
     float bunga = 0;
     float deposit_total = 0;
     float total_bunga = 0;
+    float deposit_rep = deposit;
     for(int i=0; i<repetition; i++){
-        bunga = deposit * bunga_per_tahun / 12 * tenor;
-        deposit_total = deposit + bunga;
+        printf("Deposit: %.2f\n", deposit_rep);
+        bunga = deposit_rep * bunga_per_tahun / 12 * tenor;
+        deposit_total = deposit_rep + bunga;
         total_bunga = deposit_total - deposit; 
         
-        deposit = deposit_total;
+        deposit_rep = deposit_total;
+        printf("Bunga: %.2f\n", bunga);
+        printf("Deposit total: %.2f\n", deposit_total);
+        printf("Total bunga: %.2f\n\n", total_bunga);
     }
+    
+    return total_bunga;
 }
 
 int main() {
     printf("Input deposit: ");
-    int deposit = getinput("deposit");
+    float deposit = getinput("deposit");
     
     printf("Input tenor: ");
     int tenor = getinput("tenor");
@@ -75,7 +82,7 @@ int main() {
     // printf("%d\n", get_input_year);
     
     float calculate_total_bunga = calculateTotalBunga(deposit, tenor, year);
-    printf("%d\n", calculate_total_bunga);
+    printf("%f\n", calculate_total_bunga);
     
     // int biaya = deduction();
     // int net_investment = netInvestment();
