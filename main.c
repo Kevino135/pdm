@@ -17,7 +17,7 @@ int getTenor(){
     return userinput;
 }
 
-int getDeposit(){
+float getDeposit(){
     float userinput = 0;
     
     scanf("%f", &userinput);
@@ -54,23 +54,46 @@ float calculateTotalBunga(float deposit, int tenor, int year){
     float total_bunga = 0;
     float deposit_rep = deposit;
     for(int i=0; i<repetition; i++){
-        printf("Deposit: %.2f\n", deposit_rep);
+        // printf("Deposit: %.2f\n", deposit_rep);
         bunga = deposit_rep * bunga_per_tahun / 12 * tenor;
         
         // get only 2 decimal with no rounding
-        bunga = floor(bunga * 100);
-        bunga = bunga / 100;
+        bunga = floor(bunga * 100) / 100;
         
         deposit_total = deposit_rep + bunga;
         total_bunga = deposit_total - deposit; 
         
         deposit_rep = deposit_total;
-        printf("Bunga: %.2f\n", bunga);
-        printf("Deposit total: %.2f\n", deposit_total);
-        printf("Total bunga: %.2f\n\n", total_bunga);
+        // printf("Bunga: %.2f\n", bunga);
+        // printf("Deposit total: %.2f\n", deposit_total);
+        // printf("Total bunga: %.2f\n\n", total_bunga);
     }
     
     return total_bunga;
+}
+
+float incomeTax(float total_bunga){
+    return total_bunga * 0.2;
+}
+
+float interestExpenses(float total_bunga){
+    return total_bunga - (floor((total_bunga * 0.01) * 100) / 100);
+}
+
+float deduction(float deposit, float total_bunga){
+    float interest_expenses = interestExpenses(total_bunga);
+    
+    interest_expenses = floor(interest_expenses * 100) / 100;
+    
+    if(deposit > 1000){
+        return interest_expenses + incomeTax(total_bunga);    
+    }
+    
+    return interest_expenses;
+}
+
+float netInvestment(float deposit, float biaya){
+    return deposit + biaya;
 }
 
 int main() {
@@ -88,10 +111,12 @@ int main() {
     // printf("%d\n", get_input_year);
     
     float calculate_total_bunga = calculateTotalBunga(deposit, tenor, year);
-    printf("%.2f\n", calculate_total_bunga);
+    // printf("%.2f\n", calculate_total_bunga);
     
-    // int biaya = deduction();
-    // int net_investment = netInvestment();
+    float biaya = deduction(deposit, calculate_total_bunga);
+    // printf("%.2f\n", biaya);
+    float net_investment = netInvestment(deposit, biaya);
+    printf("%.2f", net_investment);
 
     return 0;
 }
