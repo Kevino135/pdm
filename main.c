@@ -1,6 +1,7 @@
 // Online C compiler to run C program online
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
 int getYear(){
     int userinput = 0;
@@ -55,6 +56,11 @@ float calculateTotalBunga(float deposit, int tenor, int year){
     for(int i=0; i<repetition; i++){
         printf("Deposit: %.2f\n", deposit_rep);
         bunga = deposit_rep * bunga_per_tahun / 12 * tenor;
+        
+        // get only 2 decimal with no rounding
+        bunga = floor(bunga * 100);
+        bunga = bunga / 100;
+        
         deposit_total = deposit_rep + bunga;
         total_bunga = deposit_total - deposit; 
         
@@ -82,7 +88,7 @@ int main() {
     // printf("%d\n", get_input_year);
     
     float calculate_total_bunga = calculateTotalBunga(deposit, tenor, year);
-    printf("%f\n", calculate_total_bunga);
+    printf("%.2f\n", calculate_total_bunga);
     
     // int biaya = deduction();
     // int net_investment = netInvestment();
