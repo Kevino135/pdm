@@ -73,17 +73,15 @@ float calculateTotalBunga(float deposit, int tenor, int year){
 }
 
 float incomeTax(float total_bunga){
-    return total_bunga * 0.2;
+    return floor((total_bunga * 0.2) * 100) / 100;
 }
 
 float interestExpenses(float total_bunga){
-    return total_bunga - (floor((total_bunga * 0.01) * 100) / 100);
+    return floor((total_bunga * 0.01) * 100) / 100;
 }
 
 float deduction(float deposit, float total_bunga){
     float interest_expenses = interestExpenses(total_bunga);
-    
-    interest_expenses = floor(interest_expenses * 100) / 100;
     
     if(deposit > 1000){
         return interest_expenses + incomeTax(total_bunga);    
@@ -92,8 +90,8 @@ float deduction(float deposit, float total_bunga){
     return interest_expenses;
 }
 
-float netInvestment(float deposit, float biaya){
-    return deposit + biaya;
+float netInvestment(float deposit, float total_bunga, float biaya){
+    return deposit + (total_bunga - biaya);
 }
 
 int main() {
@@ -115,7 +113,7 @@ int main() {
     
     float biaya = deduction(deposit, calculate_total_bunga);
     // printf("%.2f\n", biaya);
-    float net_investment = netInvestment(deposit, biaya);
+    float net_investment = netInvestment(deposit, calculate_total_bunga, biaya);
     printf("%.2f", net_investment);
 
     return 0;
