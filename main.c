@@ -6,21 +6,49 @@
 int getYear(){
     int userinput = 0;
     
-    scanf("%d", &userinput);
+    do{
+        printf("Input tahun minimal 1 tahun & maksimal 10 tahun\n");
+        printf("Input tahun: ");
+        scanf("%d", &userinput);
+        
+        if(userinput < 1 || userinput > 10) printf("Tahun tidak valid\n");
+        else printf("Tahun valid\n");
+    }while(userinput < 1 || userinput > 10);
+    
     return userinput;
 }
 
 int getTenor(){
     int userinput = 0;
     
-    scanf("%d", &userinput);
+    do{
+        printf("Pilihan tenor yang tersedia antara lain:\n");
+        printf("a) 1 bulan\n");
+        printf("b) 3 bulan\n");
+        printf("c) 6 bulan\n");
+        printf("d) 12 bulan\n");
+        
+        printf("Input tenor sesuai dengan pilihan yang tersedia: ");
+        scanf("%d", &userinput);
+        
+        if(userinput != 1 || userinput != 3 || userinput != 6 || userinput != 12) printf("Tenor tidak valid\n");
+        else printf("Tenor valid\n");
+    }while(userinput != 1 || userinput != 3 || userinput != 6 || userinput != 12);
+    
     return userinput;
 }
 
 float getDeposit(){
     float userinput = 0;
+    do{
+        printf("Nilai deposito awal harus antara USD$100 - USD$10000\n");
+        printf("Input nilai deposito: ");
+        scanf("%f", &userinput);
+        
+        if(userinput < 100 || userinput > 10000) printf("Nilai deposito tidak valid\n");
+        else printf("Nilai deposito valid\n");
+    }while(userinput < 100 || userinput > 10000);
     
-    scanf("%f", &userinput);
     return userinput;
 }
 
@@ -95,13 +123,8 @@ float netInvestment(float deposit, float total_bunga, float biaya){
 }
 
 int main() {
-    printf("Input deposit: ");
     float deposit = getinput("deposit");
-    
-    printf("Input tenor: ");
     int tenor = getinput("tenor");
-    
-    printf("Input year: ");
     int year = getinput("year");
     
     // printf("%d\n", get_input_deposit);
