@@ -7,13 +7,17 @@ int getYear(){
     int userinput = 0;
     
     do{
-        printf("Input tahun minimal 1 tahun & maksimal 10 tahun\n");
+        printf("Input tahun min. 1 tahun & maks. 10 tahun\n");
         printf("Input tahun: ");
         scanf("%d", &userinput);
+        getchar();
         
-        if(userinput < 1 || userinput > 10) printf("Tahun tidak valid\n");
-        else printf("Tahun valid\n");
-    }while(userinput < 1 || userinput > 10);
+        if(userinput >= 1 && userinput <= 10){
+            printf("Tahun valid\n\n");
+            break;
+        } 
+        else printf("Tahun tidak valid\n\n");
+    }while(1);
     
     return userinput;
 }
@@ -30,10 +34,14 @@ int getTenor(){
         
         printf("Input tenor sesuai dengan pilihan yang tersedia: ");
         scanf("%d", &userinput);
+        getchar();
         
-        if(userinput != 1 || userinput != 3 || userinput != 6 || userinput != 12) printf("Tenor tidak valid\n");
-        else printf("Tenor valid\n");
-    }while(userinput != 1 || userinput != 3 || userinput != 6 || userinput != 12);
+        if(userinput == 1 || userinput == 3 || userinput == 6 || userinput == 12){
+            printf("Tenor valid\n\n");
+            break;
+        } 
+        else printf("Tenor tidak valid\n\n");
+    }while(1);
     
     return userinput;
 }
@@ -41,13 +49,17 @@ int getTenor(){
 float getDeposit(){
     float userinput = 0;
     do{
-        printf("Nilai deposito awal harus antara USD$100 - USD$10000\n");
+        printf("Nilai deposito awal harus antara [USD$100 - USD$10000]\n");
         printf("Input nilai deposito: ");
         scanf("%f", &userinput);
+        getchar();
         
-        if(userinput < 100 || userinput > 10000) printf("Nilai deposito tidak valid\n");
-        else printf("Nilai deposito valid\n");
-    }while(userinput < 100 || userinput > 10000);
+        if(userinput >= 100 && userinput <= 10000){
+            printf("Nilai deposito valid\n\n");
+            break;
+        } 
+        else printf("Nilai deposito tidak valid\n\n");
+    }while(1);
     
     return userinput;
 }
@@ -55,13 +67,13 @@ float getDeposit(){
 int getinput(char choice[]){
     int input = 0;
     
-    if(strcmp(choice, "deposit")){
+    if(strcmp(choice, "deposit") == 0){
         input = getDeposit();
     }
-    else if(strcmp(choice, "tenor")){
+    else if(strcmp(choice, "tenor") == 0){
         input = getTenor();
     }
-    else if(strcmp(choice, "year")){
+    else if(strcmp(choice, "year") == 0){
         input = getYear();
     }
     
@@ -137,7 +149,7 @@ int main() {
     float biaya = deduction(deposit, calculate_total_bunga);
     // printf("%.2f\n", biaya);
     float net_investment = netInvestment(deposit, calculate_total_bunga, biaya);
-    printf("%.2f", net_investment);
+    printf("Net Investment: %.2f", net_investment);
 
     return 0;
 }
